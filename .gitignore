@@ -1,0 +1,7 @@
+# ключ от OpenWeather, у каждого свой
+config.js
+
+# системный мусор
+.DS_Store
+.vscode/
+.idea/
