@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <main class="page">
+      <!-- === search form (Улугбек) === -->
+      <section class="search-section" aria-label="Поиск погоды">
+        <form id="search-form" class="search-form">
+          <label class="sr-only" for="city-input">Название города</label>
+          <input
+            id="city-input"
+            class="city-input"
+            type="text"
+            name="city"
+            autocomplete="address-level2"
+            aria-describedby="loading"
+          />
+          <button id="search-btn" class="search-btn" type="submit">Search</button>
+        </form>
+        <p id="loading" class="loading" role="status" hidden>Loading…</p>
+      </section>
+
+      <!-- === result (Михаил) === -->
+      <div id="result" aria-live="polite"></div>
+    </main>
+  </body>
+</html>
