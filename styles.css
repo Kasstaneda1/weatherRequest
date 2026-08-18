@@ -7,17 +7,20 @@
 
 html {
   min-height: 100%;
+  /* место под полосу прокрутки держим всегда, иначе при появлении Loading
+     страница становится выше экрана и всё центрированное прыгает влево */
+  scrollbar-gutter: stable;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
   color: #ffffff;
-  font-family: -apple-system, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
   background-color: #263c55;
   background-image:
     linear-gradient(to bottom, rgba(18, 38, 60, 0.08), rgba(8, 23, 41, 0.24)),
-    url("assets/rain-background.png");
+    url("assets/rain-background.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -29,21 +32,44 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 60px;
-  padding: 0 20px;
-  background: rgba(255, 255, 255, 0.18);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  height: 80px;
+  background:
+    linear-gradient(0deg, rgba(18, 45, 77, 0.5), rgba(18, 45, 77, 0.5)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+  border-bottom: 1px solid rgba(210, 210, 210, 1);
+  -webkit-backdrop-filter: blur(17.8px);
+  backdrop-filter: blur(17.8px);
+}
+
+/* ссылка занимает всю шапку, чтобы кликом ловилась любая её точка */
+.header__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.header__link:hover .header__title {
+  opacity: 0.8;
+}
+
+.header__link:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -4px;
 }
 
 .header__title {
   margin: 0;
-  color: #ffffff;
-  font-size: 20px;
+  color: rgba(255, 255, 255, 1);
+  font-size: 24px;
   font-weight: 700;
   line-height: 1;
   text-align: center;
+  transition: opacity 0.15s ease;
 }
 
 .sr-only {
@@ -62,7 +88,7 @@ body {
 .search-section {
   display: grid;
   justify-items: center;
-  margin: 100px auto 0;
+  margin: 140px auto 0;
   padding: 0 16px;
 }
 
@@ -75,16 +101,32 @@ body {
 .city-input,
 .search-btn {
   height: 48px;
-  border-radius: 50px;
   font: inherit;
 }
 
 .city-input {
   width: min(550px, calc(100vw - 158px));
-  padding: 0 16px;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.16);
+  padding: 12px 12px 12px 20px;
+  border: 1px solid rgba(255, 255, 255, 1);
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+/* Chrome красит автозаполненное поле по-своему: светлый фон и тёмный текст.
+   Цвет перебиваем -webkit-text-fill-color, фон растягиваем переходом,
+   чтобы он не успел появиться и прозрачность поля сохранилась. */
+.city-input:-webkit-autofill,
+.city-input:-webkit-autofill:hover,
+.city-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff;
+  caret-color: #ffffff;
+  transition: background-color 9999s ease-in-out 0s;
 }
 
 .city-input:focus-visible,
@@ -94,11 +136,15 @@ body {
 }
 
 .search-btn {
-  min-width: 146px;
-  padding: 0 20px;
+  width: 146px;
+  padding: 12px 40px;
   border: 0;
-  background: #4a7db5;
-  color: #ffffff;
+  border-radius: 50px;
+  background: #3678b4;
+  color: rgba(255, 255, 255, 1);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1;
   cursor: pointer;
 }
 
@@ -128,4 +174,203 @@ body {
   }
 }
 
+/* === empty city modal (Улугбек) === */
+.modal {
+  width: 440px;
+  max-width: calc(100% - 32px);
+  padding: 32px 36px;
+  border: 0;
+  border-radius: 18px;
+  background: linear-gradient(
+    133.66deg,
+    rgba(47, 72, 111, 0.62) 5.78%,
+    rgba(11, 27, 52, 0.62) 96.58%
+  );
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  text-align: center;
+}
+
+.modal::backdrop {
+  background: rgba(8, 20, 38, 0.55);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.modal__title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.modal__text {
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.modal__btn {
+  width: 146px;
+  height: 48px;
+  margin-top: 24px;
+  padding: 12px 40px;
+  border: 0;
+  border-radius: 50px;
+  background: #3678b4;
+  color: #ffffff;
+  font: inherit;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal__btn:hover {
+  filter: brightness(1.08);
+}
+
+.modal__btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
 /* === result (Михаил) === */
+.weather {
+  display: grid;
+  gap: 32px;
+  width: min(709px, calc(100% - 32px));
+  margin: 60px auto 0;
+}
+
+/* без этого атрибут hidden не сработает: display: grid выше него по силе */
+.weather[hidden] {
+  display: none;
+}
+
+/* все значения сняты с Figma */
+.card {
+  padding: 22px 32px;
+  border-radius: 18px;
+  background: linear-gradient(
+    133.66deg,
+    rgba(47, 72, 111, 0.62) 5.78%,
+    rgba(11, 27, 52, 0.62) 96.58%
+  );
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+/* температура слева, иконка по центру оставшегося места, как в макете */
+.card--main {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  height: 129px;
+  padding: 16px 36px;
+}
+
+.card__temp {
+  height: 69px;
+  margin: 0;
+  font-size: 57px;
+  font-weight: 500;
+  line-height: 69px;
+}
+
+.card__city {
+  height: 22px;
+  margin: 6px 0 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.card__icon {
+  width: 74px;
+  height: 74px;
+  justify-self: center;
+}
+
+.weather__row {
+  display: grid;
+  grid-template-columns: 223px 1fr;
+  gap: 40px;
+}
+
+.weather__row .card {
+  height: 141px;
+  padding: 8px 30px;
+}
+
+/* широкая карточка держит два показателя в ряд */
+.card--wide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: start;
+  gap: 24px;
+}
+
+.card__label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 23px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.57);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.card__label-icon {
+  width: 31px;
+  height: 23px;
+  opacity: 0.61;
+}
+
+.card__value {
+  height: 51px;
+  margin: 4px 0 0;
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 51px;
+}
+
+.card--error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 129px;
+  padding: 16px 36px;
+  text-align: center;
+}
+
+.error__title {
+  height: 69px;
+  margin: 0;
+  color: rgba(243, 94, 94, 1);
+  font-size: 57px;
+  font-weight: 500;
+  line-height: 69px;
+}
+
+.error__message {
+  height: 22px;
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 1);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+@media (max-width: 560px) {
+  .weather__row {
+    grid-template-columns: 1fr;
+  }
+}
