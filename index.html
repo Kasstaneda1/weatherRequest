@@ -4,13 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
+     <script src="config.js" defer></script>
     <script src="index.js" defer></script>
   </head>
   <body>
     <!-- === header (Ибрагим) === -->
     <header class="header">
-      <h1 class="header__title">Weather App</h1>
+      <!-- ссылка на саму страницу: клик по шапке перезагружает приложение -->
+      <a class="header__link" href="index.html">
+        <h1 class="header__title">Weather App</h1>
+      </a>
     </header>
 
     <main class="page">
@@ -32,7 +42,53 @@
       </section>
 
       <!-- === result (Михаил) === -->
-      <div id="result" aria-live="polite"></div>
+      <div id="result" aria-live="polite">
+        <div class="weather" id="weather-card" hidden>
+          <div class="card card--main">
+            <div>
+              <p class="card__temp" id="weather-temp"></p>
+              <p class="card__city" id="weather-city"></p>
+            </div>
+            <img class="card__icon" id="weather-icon" src="" alt="" />
+          </div>
+
+          <div class="weather__row">
+            <div class="card">
+              <p class="card__label">
+                <img class="card__label-icon" src="assets/thermometer.png" alt="" />
+                Feels like
+              </p>
+              <p class="card__value" id="weather-feels"></p>
+            </div>
+            <div class="card card--wide">
+              <div>
+                <p class="card__label">💧 Humidity</p>
+                <p class="card__value" id="weather-humidity"></p>
+              </div>
+              <div>
+                <p class="card__label">💨 Wind</p>
+                <p class="card__value" id="weather-wind"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="weather" id="error-card" hidden>
+          <div class="card card--error">
+            <p class="error__title">API Error</p>
+            <p class="error__message" id="error-message"></p>
+          </div>
+        </div>
+      </div>
     </main>
+
+    <!-- === empty city modal (Улугбек) === -->
+    <dialog id="empty-city-modal" class="modal">
+      <p class="modal__title">Enter a city</p>
+      <p class="modal__text">Type a city name in the search field to see the weather.</p>
+      <form method="dialog">
+        <button class="modal__btn" type="submit">OK</button>
+      </form>
+    </dialog>
   </body>
 </html>
