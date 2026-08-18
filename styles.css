@@ -46,6 +46,86 @@ body {
   text-align: center;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* === search form (Улугбек) === */
+.search-section {
+  display: grid;
+  justify-items: center;
+  margin: 100px auto 0;
+  padding: 0 16px;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.city-input,
+.search-btn {
+  height: 48px;
+  border-radius: 50px;
+  font: inherit;
+}
+
+.city-input {
+  width: min(550px, calc(100vw - 158px));
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.city-input:focus-visible,
+.search-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.search-btn {
+  min-width: 146px;
+  padding: 0 20px;
+  border: 0;
+  background: #4a7db5;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.search-btn:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.search-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.loading {
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+@media (max-width: 560px) {
+  .search-form {
+    width: min(100%, 420px);
+    flex-direction: column;
+  }
+
+  .city-input,
+  .search-btn {
+    width: 100%;
+  }
+}
 
 /* === result (Михаил) === */
