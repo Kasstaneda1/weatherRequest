@@ -11,7 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-     <script src="config.js" defer></script>
+    <script src="config.js" defer></script>
     <script src="index.js" defer></script>
   </head>
   <body>
@@ -38,7 +38,10 @@
           />
           <button id="search-btn" class="search-btn" type="submit">Search</button>
         </form>
-        <p id="loading" class="loading" role="status" hidden>Loading…</p>
+        <p id="loading" class="loading" role="status" hidden>
+          <img class="loading__spinner" src="assets/spinner.gif" alt="" />
+          <span class="sr-only">Loading…</span>
+        </p>
       </section>
 
       <!-- === result (Михаил) === -->
@@ -68,6 +71,30 @@
               <div>
                 <p class="card__label">💨 Wind</p>
                 <p class="card__value" id="weather-wind"></p>
+              </div>
+              
+            </div>
+
+            <div class="card temperature">
+              <div>
+                <p class="card__label">😶‍🌫️ Vis.</p>
+                <p class="card__value" id="visibility"></p>
+              </div>
+              <div>
+                <p class="card__label">❄️ Temp. Min</p>
+                <p class="card__value" id="temp-min"></p>
+              </div>
+              <div>
+                <p class="card__label">🔥 Temp. Max</p>
+                <p class="card__value" id="temp-max"></p>
+              </div>
+              <div>
+                <p class="card__label">😖 Press.</p>
+                <p class="card__value">
+                  <span id="pressure"></span>
+                  <span class="card__unit">mmHg</span>
+                </p>
+                
               </div>
             </div>
           </div>
