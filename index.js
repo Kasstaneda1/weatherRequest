@@ -1,4 +1,4 @@
-(() => {
+
   const searchForm = document.querySelector("#search-form");
   const cityInput = document.querySelector("#city-input");
   const searchButton = document.querySelector("#search-btn");
@@ -17,9 +17,24 @@
   // MIKE  should use weatherSearchUI.setLoading(false) after API responses
   window.weatherSearchUI = { setLoading };
 
-  searchForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+// === result (Михаил) ===
+const resultBox = document.querySelector("#result");
+const weatherCard = document.querySelector("#weather-card");
+const errorCard = document.querySelector("#error-card");
+const tempEl = document.querySelector("#weather-temp");
+const cityEl = document.querySelector("#weather-city");
+const iconEl = document.querySelector("#weather-icon");
+const feelsEl = document.querySelector("#weather-feels");
+const humidityEl = document.querySelector("#weather-humidity");
+const windEl = document.querySelector("#weather-wind");
+const tempMin = document.querySelector("#temp-min");
+const tempMax = document.querySelector("#temp-max");
+const visEl = document.querySelector("#visibility");
+const pressureEl  = document.querySelector("#pressure");
+const errorMessageEl = document.querySelector("#error-message");
 
+searchForm.addEventListener('submit', async (event) => {
+   event.preventDefault();
     const city = cityInput.value.trim();
 
     if (!city) {
@@ -33,31 +48,7 @@
 
     setLoading(true);
     result.hidden = true;
-
-    // Михаил слушает это событие, выполняет запрос и рисует результат.
-    document.dispatchEvent(
-      new CustomEvent("weather:search", {
-        detail: { city },
-      }),
-    );
-  });
-})();
-
-// === result (Михаил) ===
-const resultBox = document.querySelector("#result");
-const weatherCard = document.querySelector("#weather-card");
-const errorCard = document.querySelector("#error-card");
-
-const tempEl = document.querySelector("#weather-temp");
-const cityEl = document.querySelector("#weather-city");
-const iconEl = document.querySelector("#weather-icon");
-const feelsEl = document.querySelector("#weather-feels");
-const humidityEl = document.querySelector("#weather-humidity");
-const windEl = document.querySelector("#weather-wind");
-const errorMessageEl = document.querySelector("#error-message");
-
-document.addEventListener("weather:search", async (event) => {
-  const city = event.detail.city;
+  // const city = event.detail.city;
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APP_ID}`;
 
   try {
@@ -86,6 +77,10 @@ function showWeather(data) {
   feelsEl.textContent = `${Math.round(data.main.feels_like - 273.15)}°`;
   humidityEl.textContent = `${data.main.humidity}%`;
   windEl.textContent = `${data.wind.speed.toFixed(1)} m/s`;
+  tempMin.textContent = `${Math.round(data.main.temp_min - 273.15)}°`;
+  tempMax.textContent = `${Math.round(data.main.temp_max - 273.15)}°`;
+  visEl.textContent = `${(data.visibility / 1000).toFixed(1)} km`;
+ pressureEl.textContent = `${(data.main.pressure * 0.75).toFixed(1)}`;
 
   // img/wn/...@2x отдаёт 100x100 вместо 50x50, иначе иконка мылится
   iconEl.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;

@@ -19,7 +19,7 @@ body {
   font-family: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
   background-color: #263c55;
   background-image:
-    linear-gradient(to bottom, rgba(18, 38, 60, 0.08), rgba(8, 23, 41, 0.24)),
+    linear-gradient(to bottom, rgba(18, 38, 60, 0.08), rgba(29, 32, 45, 0.30)),
     url("assets/rain-background.jpg");
   background-position: center;
   background-size: cover;
@@ -54,7 +54,7 @@ body {
 }
 
 .header__link:hover .header__title {
-  opacity: 0.8;
+  opacity: 0.5;
 }
 
 .header__link:focus-visible {
@@ -131,8 +131,8 @@ body {
 
 .city-input:focus-visible,
 .search-btn:focus-visible {
-  outline: 2px solid #ffffff;
-  outline-offset: 3px;
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
 }
 
 .search-btn {
@@ -159,7 +159,12 @@ body {
 
 .loading {
   margin: 12px 0 0;
-  color: rgba(255, 255, 255, 0.75);
+  line-height: 0;
+}
+
+.loading__spinner {
+  width: 48px;
+  height: 48px;
 }
 
 @media (max-width: 560px) {
@@ -264,6 +269,25 @@ body {
   backdrop-filter: blur(8px);
 }
 
+.temperature {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 24px;
+}
+
+/* в этой карточке четыре показателя в ряд, поэтому шрифт мельче:
+   при 42px "10.0 km" не влезает в колонку и рвётся на две строки */
+.temperature .card__value {
+  font-size: clamp(20px, 2vw, 32px);
+  white-space: nowrap;
+}
+
+.weather__row .temperature {
+  grid-column: 1 / -1;
+  height: auto;
+  min-height: 141px;
+}
+
 /* температура слева, иконка по центру оставшегося места, как в макете */
 .card--main {
   display: grid;
@@ -306,12 +330,14 @@ body {
   padding: 8px 30px;
 }
 
-/* широкая карточка держит два показателя в ряд */
+/* показатели сами занимают свободное место и переносятся */
 .card--wide {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
   align-content: start;
   gap: 24px;
+  height: auto;
+  min-height: 141px;
 }
 
 .card__label {
@@ -335,11 +361,19 @@ body {
 }
 
 .card__value {
-  height: 51px;
+  width: 100%;
+  height: auto;
   margin: 4px 0 0;
-  font-size: 42px;
+  font-size: clamp(24px, 4vw, 42px);
   font-weight: 500;
-  line-height: 51px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.card__unit {
+  margin-left: 4px;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .card--error {
